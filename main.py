@@ -23,6 +23,7 @@ rectangle_contours=[]
 for i in range(len(contours)):
     if hierarchy[0][i][3] == -1:  # Kontur nie ma konturu nadrzędnego (jest zewnętrzny)
         rectangle_contours.append(contours[i])
+
 #narysuj kontury
 cv2.drawContours(img_color, rectangle_contours,-1, (0, 255, 0), 3)
 # Wyświetl obraz
@@ -30,7 +31,7 @@ cv2.imshow('Obraz z pokolorowanymi konturami', img_color)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
-sudoku=[]
+sudoku=[] #wektor zdjęć każdej z planszy
 for i in range(len(contours)):
     if hierarchy[0][i][3] == -1:  # Kontur nie ma konturu nadrzędnego (jest zewnętrzny)
         # Znajdź prostokąt obejmujący kontur
@@ -38,14 +39,22 @@ for i in range(len(contours)):
         # Wyciągnij fragment obrazu z prostokątem
         roi = img[y:y+h, x:x+w]
         sudoku.append(roi)
-        #cv2.imshow("dupa",roi)
-        #cv2.waitKey(0)
-        #cv2.destroyAllWindows()
-        #print(roi.shape)
+#plt.imshow(sudoku[0])
+#plt.show()
+description = [] # opis na jakim polu jest liczba
+for i in range(len(sudoku)):
+    found = False
+    for (row, col), value in np.ndenumerate(sudoku[i]):
+        if value < 100 and not found:
+            description.append(i)
+            found = True
+            break
+
+# chce przekazać 2 wektory description i sudoku do pliku rozpoznawanie
 
 
-plt.imshow(sudoku[0])
-plt.show()
-#print(len(sudoku))
+
+
+
 
 
