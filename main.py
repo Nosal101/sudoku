@@ -25,11 +25,11 @@ for i in range(len(contours)):
         rectangle_contours.append(contours[i])
 
 #narysuj kontury
-cv2.drawContours(img_color, rectangle_contours,-1, (0, 255, 0), 3)
+#cv2.drawContours(img_color, rectangle_contours,-1, (0, 255, 0), 3)
 # Wyświetl obraz
-cv2.imshow('Obraz z pokolorowanymi konturami', img_color)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+#cv2.imshow('Obraz z pokolorowanymi konturami', img_color)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
 
 sudoku=[] #wektor zdjęć każdej z planszy
 for i in range(len(contours)):

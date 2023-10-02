@@ -9,15 +9,14 @@ from main import sudoku, description
 sudoku_resized = []
 for img in sudoku:
     resized_img = cv2.resize(img, (28, 28))
-    inverted_img = cv2.bitwise_not(resized_img)
-    sudoku_resized.append(inverted_img)
+    sudoku_resized.append(resized_img)
 
 x_test = np.array(sudoku_resized)
 # Przetwórz dane testowe tak, aby miały odpowiedni kształt (28x28x1)
 x_test = x_test.reshape(-1, 28, 28, 1) / 255.0
 
 # Załaduj wytrenowany model
-model = keras.models.load_model('moj_wytrenowany_model.h5')
+model = keras.models.load_model('model_do_cyfr.h5')
 
 # Dokonaj predykcji na danych testowych
 y_pred_test = model.predict(x_test)
@@ -26,11 +25,11 @@ y_pred_test = [np.argmax(i) for i in y_pred_test]
 real_description = []
 # Wyświtl zdjęcia wraz z predykcją
 #for i in description:
-    #plt.imshow(x_test[i].reshape(28, 28), cmap='gray')
-    #plt.title(f"Predicted Label: {y_pred_test[i]}")
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
-    #plt.show()
+#    plt.imshow(x_test[i].reshape(28, 28), cmap='gray')
+#    plt.title(f"Predicted Label: {y_pred_test[i]}")
+#    cv2.waitKey(0)
+#    cv2.destroyAllWindows()
+#    plt.show()
 # Stwórz wektor wartosci pól
 for i in range(81):
     for j in description:
@@ -38,6 +37,6 @@ for i in range(81):
             real_description.append(y_pred_test[j])
     if i not in description:
         real_description.append(0)
-print(real_description)
+
 # dostaje wektor gdzie 0 jest polem pustym a cyfry oznaczają predykcje numeru na danym polu
-# 7 mylnie interpretuje jako 1 nie wiem co dalej zrobić
+# Wszystko działa do tego momentu
