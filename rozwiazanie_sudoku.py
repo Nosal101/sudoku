@@ -154,7 +154,7 @@ for g in range(100):
                                             lost_number.append(number)
                                     if len(lost_number) == 1:
                                         matrix[row, col] = lost_number[0]
-                                # jeżeli w danym rzędzie brakuje 2 cyfr i jedna z nich występuje w innym kwadracie wpisz pozostałą liczbe
+                                # uzupełnia brakujące cyfry w wierszu
                                 if matrix[row, col] == 0:
                                     row_values = matrix[row, :]
                                     numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -163,25 +163,26 @@ for g in range(100):
                                     for number in numbers:
                                         if number not in row_values:
                                             lost_number.append(number)
-                                    if len(lost_number) == 2:
-                                        # Znajdź pozycje zer
-                                        zero_positions = np.where(row_values == 0)
-                                        if zero_positions[0].any():
-                                            zero_positions = zero_positions[0]
-                                        #ustal w jakim kwadracie znajduje sie liczba
-                                        if zero_positions[0] == col:
-                                            marked_matrix, numbers_in_square = mark_numbers_in_square(matrix, row,
-                                                                                                      zero_positions[1])
-
-                                        if zero_positions[1] == col:
-                                            marked_matrix, numbers_in_square = mark_numbers_in_square(matrix, row,
-                                                                                                      zero_positions[0])
-                                        #przypisz liczbe w jedynym możliwym polu
-                                        if_exist = np.isin(lost_number, numbers_in_square)
-                                        if if_exist[0] == False or if_exist[1] == False:
-                                            if if_exist[0] == True:
-                                                matrix[row, col] = lost_number[0]
-                                            if if_exist[1] == True:
-                                                matrix[row, col] = lost_number[1]
+                                    zero_positions = np.where(row_values == 0)
+                                    if zero_positions[0].any():
+                                        zero_positions = zero_positions[0]
+                                    for lost in lost_number:
+                                        bc = 0
+                                        for zero in zero_positions:
+                                            zal = False
+                                            if zero != col:
+                                                if check_col(lost, zero, matrix)[zero % 3] == 1 and zal == False:
+                                                    bc = bc + 1
+                                                    zal = True
+                                                marked_matrix, numbers_in_square = mark_numbers_in_square(matrix, row,
+                                                                                                          zero)
+                                                if_exist = np.isin(lost, numbers_in_square)
+                                                if if_exist == True and zal == False:
+                                                    bc = bc + 1
+                                                    zal = True
+                                                zal = False
+                                        if bc == len(zero_positions) - 1:
+                                            if matrix[row, col] == 0:
+                                                matrix[row, col] = lost
 
 print(matrix)
