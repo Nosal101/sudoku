@@ -155,27 +155,33 @@ for g in range(100):
                                     if len(lost_number) == 1:
                                         matrix[row, col] = lost_number[0]
                                 # jeżeli w danym rzędzie brakuje 2 cyfr i jedna z nich występuje w innym kwadracie wpisz pozostałą liczbe
+                                if matrix[row, col] == 0:
+                                    row_values = matrix[row, :]
+                                    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                                    lost_number = []
+                                    # liczby których brakuje w wierszu
                                     for number in numbers:
                                         if number not in row_values:
                                             lost_number.append(number)
+                                    if len(lost_number) == 2:
+                                        # Znajdź pozycje zer
+                                        zero_positions = np.where(row_values == 0)
+                                        if zero_positions[0].any():
+                                            zero_positions = zero_positions[0]
+                                        #ustal w jakim kwadracie znajduje sie liczba
+                                        if zero_positions[0] == col:
+                                            marked_matrix, numbers_in_square = mark_numbers_in_square(matrix, row,
+                                                                                                      zero_positions[1])
 
+                                        if zero_positions[1] == col:
+                                            marked_matrix, numbers_in_square = mark_numbers_in_square(matrix, row,
+                                                                                                      zero_positions[0])
+                                        #przypisz liczbe w jedynym możliwym polu
+                                        if_exist = np.isin(lost_number, numbers_in_square)
+                                        if if_exist[0] == False or if_exist[1] == False:
+                                            if if_exist[0] == True:
+                                                matrix[row, col] = lost_number[0]
+                                            if if_exist[1] == True:
+                                                matrix[row, col] = lost_number[1]
 
 print(matrix)
-#marked_matrix,numbers_in_square = mark_numbers_in_square(matrix, 2, 7)
-#row_values = matrix[2, :]
-#numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-#lost_number = []
-#for number in numbers:
-#    if number not in row_values:
-#        lost_number.append(number)
-# Znajdź pozycje zer
-#zero_positions = np.where(row_values == 0)
-#if np.any(zero_positions):
-#    zero_positions = np.array(zero_positions)
-#    marked_matrix1, numbers_in_square1 = mark_numbers_in_square(matrix, 2, zero_positions[0])
-#
-#print(numbers_in_square)
-#print(row_values)
-#print(lost_number)
-#print(zero_positions)
-#print(numbers_in_square1)
