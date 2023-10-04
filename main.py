@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Wczytaj obraz w odcieniach szarości
-img = cv2.imread('photo/sudoku1.png', 0)
+img = cv2.imread('photo/sudoku_test_4.png', 0)
 desired_size = (400, 400)
 img = cv2.resize(img, desired_size)
 #Dokonaj Erozji

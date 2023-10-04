@@ -185,4 +185,5 @@ for g in range(100):
                                             if matrix[row, col] == 0:
                                                 matrix[row, col] = lost
 
-print(matrix)
+
+#print(matrix)
