@@ -5,7 +5,7 @@ import pandas as pd
 
 
 # Załaduj wytrenowany model
-model = keras.models.load_model('model_do_cyfr.h5')
+model = keras.models.load_model('../model_do_cyfr.h5')
 
 # Przykład wczytywania danych testowych
 test_data = pd.read_csv("photo/test.csv")

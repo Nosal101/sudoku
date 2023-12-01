@@ -16,7 +16,7 @@ x_test = np.array(sudoku_resized)
 x_test = x_test.reshape(-1, 28, 28, 1) / 255.0
 
 # Załaduj wytrenowany model
-model = keras.models.load_model('model_do_cyfr.h5')
+model = keras.models.load_model('../model_do_cyfr.h5')
 
 # Dokonaj predykcji na danych testowych
 y_pred_test = model.predict(x_test)
